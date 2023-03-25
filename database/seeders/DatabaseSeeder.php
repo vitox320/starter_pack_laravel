@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ProfileSeeder::class,
             AbilitySeeder::class,
-            ProfileAbilitySeeder::class
+            ProfileAbilitySeeder::class,
+            ParametersSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
 

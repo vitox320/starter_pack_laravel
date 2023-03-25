@@ -11,11 +11,15 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
-     * @param UserService $userService
+     * @param UserService $service
      */
-    public function __construct(public UserService $userService)
+    public function __construct(public UserService $service)
     {
     }
 
+    public function store(UserRequest $request)
+    {
+        return $this->service->store($request);
+    }
 
 }

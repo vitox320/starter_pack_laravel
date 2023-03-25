@@ -19,7 +19,6 @@ class UserRepository implements UserRepositoryInterface
      */
     public function store(array $data): object
     {
-        $data['password'] = Hash::make($data['password']);
         return $this->entity->create($data);
     }
 

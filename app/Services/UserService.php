@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repositories\Interfaces\ParametersRepositoryInterface;
 use App\Repositories\Interfaces\ProfileRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
@@ -14,8 +15,9 @@ class UserService
      * @param ProfileRepositoryInterface $profileRepository
      */
     public function __construct(
-        public UserRepositoryInterface    $repository,
-        public ProfileRepositoryInterface $profileRepository)
+        public UserRepositoryInterface       $repository,
+        public ProfileRepositoryInterface    $profileRepository,
+        public ParametersRepositoryInterface $parametersRepository)
     {
     }
 
@@ -25,8 +27,12 @@ class UserService
      */
     public function store(Request $request)
     {
+        $data = $request->all();
         try {
-            $this->repository->store($request->all());
+            if ($request->path() == 'api/auth/register') {
+                $data['profile_id'] = $this->parametersRepository->getParametersValueByParameterName('COLABORADOR_PROFILE');
+            }
+            $this->repository->store($data);
             return response()->json('Registro cadastrado com sucesso', 201);
         } catch (\Exception $exception) {
             return response()->json(['Erro ao salvar usuário'], $exception->getCode());

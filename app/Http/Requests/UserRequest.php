@@ -24,12 +24,17 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rule = [
             'name' => ['required', 'string', 'min:3'],
             'email' => ['required', 'string', 'email', 'unique:users'],
             'password' => ['required', 'confirmed'],
-            'profile_id' => ['required']
+
         ];
+        if ($this->path() == 'api/user/' && $this->method() == 'post') {
+            $rule['profile_id'] = ['required'];
+        }
+        return $rule;
+
     }
 
     public function messages(): array
@@ -39,7 +44,6 @@ class UserRequest extends FormRequest
             'email.required' => 'O campo email é obrigatório',
             'email.email' => 'O email inserido não é válido',
             'password.required' => 'O campo senha é obrigatório',
-            'profile_id.required' => 'O campo perfil é obrigatório',
             'email.unique' => 'O campo email deve ser único'
         ];
     }

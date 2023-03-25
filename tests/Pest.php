@@ -17,13 +17,7 @@ uses(
 //    Illuminate\Foundation\Testing\RefreshDatabase::class,
 )->in('Feature');
 
-beforeAll(function () {
-    \Illuminate\Support\Facades\DB::beginTransaction();
-});
 
-afterAll(function () {
-    \Illuminate\Support\Facades\DB::rollBack();
-});
 /*
 |--------------------------------------------------------------------------
 | Expectations

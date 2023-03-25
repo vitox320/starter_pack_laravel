@@ -11,7 +11,6 @@ it('can create a user', function () {
         'email' => 'zaaw320@gmail.com',
         'password' => '123456',
         'password_confirmation' => '123456',
-        'profile_id' => 1 // Usuário ADM
     ];
 
     $response = $this->post('/api/auth/register', $userRequest);
@@ -21,7 +20,7 @@ it('can create a user', function () {
 
 });
 
-it('can login with abilities', function () {
+it('can login', function () {
     $user = \App\Models\User::factory()->create();
 
     $userRequest = [
