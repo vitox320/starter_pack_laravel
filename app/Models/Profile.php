@@ -10,4 +10,11 @@ class Profile extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+
+    public function abilities()
+    {
+        return $this->belongsToMany(Ability::class, 'profile_abilities');
+    }
+
+
 }

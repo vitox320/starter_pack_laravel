@@ -6,13 +6,12 @@ use Laravel\Sanctum\Sanctum;
 uses(Tests\TestCase::class);
 
 it('can create a user', function () {
-    $profile = \App\Models\Profile::factory()->create();
     $userRequest = [
         'name' => 'Victor xD',
         'email' => 'zaaw320@gmail.com',
         'password' => '123456',
         'password_confirmation' => '123456',
-        'profile_id' => $profile->id
+        'profile_id' => 1 // Usuário ADM
     ];
 
     $response = $this->post('/api/auth/register', $userRequest);
@@ -22,7 +21,7 @@ it('can create a user', function () {
 
 });
 
-it('can login', function () {
+it('can login with abilities', function () {
     $user = \App\Models\User::factory()->create();
 
     $userRequest = [
@@ -47,3 +46,4 @@ it('can get auth me', function () {
         ->and($user->email)->toBe($response->json('email'))
         ->and($user->profile_id)->toBe($response->json('profile_id'));
 });
+

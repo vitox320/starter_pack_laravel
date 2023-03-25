@@ -3,11 +3,11 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\User;
-use App\Repositories\Interfaces\UserInterfaceRepository;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
 
-class UserRepository implements UserInterfaceRepository
+class UserRepository implements UserRepositoryInterface
 {
     public function __construct(public User $entity)
     {

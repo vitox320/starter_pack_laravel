@@ -2,16 +2,20 @@
 
 namespace App\Services;
 
-use App\Repositories\Interfaces\UserInterfaceRepository;
+use App\Repositories\Interfaces\ProfileRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserService
 {
     /**
-     * @param UserInterfaceRepository $repository
+     * @param UserRepositoryInterface $repository
+     * @param ProfileRepositoryInterface $profileRepository
      */
-    public function __construct(public UserInterfaceRepository $repository)
+    public function __construct(
+        public UserRepositoryInterface    $repository,
+        public ProfileRepositoryInterface $profileRepository)
     {
     }
 
@@ -50,7 +54,11 @@ class UserService
         }
 
         $user = $this->repository->findByEmail($request->email);
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $profile = $this->profileRepository->findById($user->profile_id);
+        $profile_abilities = $this->profileRepository->getProfileAbilities($profile);
+        $abilities = $this->profileRepository->getSlugsProfileAbilities($profile_abilities);
+
+        $token = $user->createToken('auth_token', $abilities)->plainTextToken;
         return response()->json(['access_token' => $token, 'token_type' => 'Bearer']);
 
     }

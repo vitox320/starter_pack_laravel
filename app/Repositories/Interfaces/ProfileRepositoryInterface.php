@@ -2,10 +2,11 @@
 
 namespace App\Repositories\Interfaces;
 
-use App\Models\User;
+
+use App\Models\Profile;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-interface UserInterfaceRepository
+interface ProfileRepositoryInterface
 {
     public function index(): \Illuminate\Database\Eloquent\Collection;
 
@@ -13,11 +14,11 @@ interface UserInterfaceRepository
 
     public function store(array $data): object;
 
-    public function update(User $entity, array $data): void;
+    public function update(Profile $entity, array $data): void;
 
-    public function destroy(User $entity): void;
+    public function destroy(Profile $entity): void;
 
-    public function findById(int $id): User;
+    public function findById(int $id): Profile;
 
-
+    public function getProfileAbilities(Profile $profile);
 }

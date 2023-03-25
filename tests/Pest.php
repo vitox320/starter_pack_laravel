@@ -13,14 +13,15 @@
 
 uses(
 //Tests\TestCase::class,
-    Illuminate\Foundation\Testing\RefreshDatabase::class,
+    \Illuminate\Foundation\Testing\DatabaseTransactions::class
+//    Illuminate\Foundation\Testing\RefreshDatabase::class,
 )->in('Feature');
 
-beforeEach(function () {
+beforeAll(function () {
     \Illuminate\Support\Facades\DB::beginTransaction();
 });
 
-afterEach(function () {
+afterAll(function () {
     \Illuminate\Support\Facades\DB::rollBack();
 });
 /*

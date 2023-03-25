@@ -13,6 +13,15 @@ class ProfileSeeder extends Seeder
      */
     public function run(): void
     {
-        Profile::factory()->count(3)->create();
+        $profiles = [
+            [
+                'name' => 'Administrador Geral'
+            ],
+            [
+                'name' => 'Colaborador'
+            ]
+        ];
+
+        Profile::insert($profiles);
     }
 }
