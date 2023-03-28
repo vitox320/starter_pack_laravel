@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\ParametersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,11 +28,13 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::prefix('users')->group(function () {
+        Route::get('/', [UserController::class, 'filter'])->middleware('abilities:user_list');
+        Route::patch('/{id}', [UserController::class, 'update'])->middleware('abilities:user_edit');
         Route::post('/', [UserController::class, 'store'])->middleware('abilities:user_create');
     });
 
     Route::prefix('parameters')->group(function () {
-        Route::post('/', [\App\Http\Controllers\ParametersController::class, 'store']);
+        Route::post('/', [ParametersController::class, 'store'])->middleware('abilities:parameter_create');
     });
 
 });

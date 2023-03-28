@@ -40,10 +40,20 @@ class UserService
 
     }
 
+    public function filter(Request $request)
+    {
+        return $this->repository->filter($request->all());
+    }
+
+    public function findById(int $id)
+    {
+        return $this->repository->findById($id);
+    }
+
     public function update(Request $request, int $id)
     {
         try {
-            $entity = $this->repository->findById($id);
+            $entity = $this->findById($id);
             $this->repository->update($entity, $request->all());
             return response()->json('Registro atualizado com sucesso');
         } catch (\Exception) {

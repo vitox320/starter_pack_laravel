@@ -17,6 +17,16 @@ class UserController extends Controller
     {
     }
 
+    public function filter(Request $request)
+    {
+        return $this->service->filter($request);
+    }
+
+    public function update(Request $request, int $id)
+    {
+        return $this->service->update($request, $id);
+    }
+
     public function store(UserRequest $request)
     {
         return $this->service->store($request);
