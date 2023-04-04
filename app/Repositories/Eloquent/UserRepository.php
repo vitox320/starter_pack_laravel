@@ -3,9 +3,13 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\User;
+use App\Notifications\UserCreated;
 use App\Repositories\Interfaces\UserRepositoryInterface;
+use Illuminate\Http\File;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -19,7 +23,13 @@ class UserRepository implements UserRepositoryInterface
      */
     public function store(array $data): object
     {
-        return $this->entity->create($data);
+        return DB::transaction(function () use ($data) {
+            $user = $this->entity->create($data);
+            $this->entity->notify(new UserCreated($user));
+            return $user;
+        });
+
+
     }
 
     public function update(User $entity, array $data): void
