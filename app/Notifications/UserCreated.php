@@ -15,7 +15,7 @@ class UserCreated extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(public User $user)
+    public function __construct(public User $user, public string $password)
     {
         //
     }
@@ -37,7 +37,7 @@ class UserCreated extends Notification
     {
         return (new MailMessage)
             ->subject('Criação de Usuário')
-            ->markdown('mail.user.created');
+            ->markdown('mail.user.created', ['user_name' => $this->user->name, 'password' => $this->password]);
     }
 
     /**

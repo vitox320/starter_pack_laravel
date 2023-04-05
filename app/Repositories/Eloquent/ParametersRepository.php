@@ -7,9 +7,7 @@ use App\Repositories\Interfaces\ParametersRepositoryInterface;
 
 class ParametersRepository implements ParametersRepositoryInterface
 {
-    public function __construct(public Parameters $entity)
-    {
-    }
+    public function __construct(public Parameters $entity){}
 
     public function getParametersValueByParameterName(string $parameterName)
     {

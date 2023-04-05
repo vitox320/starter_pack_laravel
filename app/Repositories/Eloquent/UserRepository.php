@@ -10,6 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -24,12 +25,11 @@ class UserRepository implements UserRepositoryInterface
     public function store(array $data): object
     {
         return DB::transaction(function () use ($data) {
+            $data['password'] = Str::random(6);
             $user = $this->entity->create($data);
-            $this->entity->notify(new UserCreated($user));
+            $this->entity->notify(new UserCreated($user, $data['password']));
             return $user;
         });
-
-
     }
 
     public function update(User $entity, array $data): void

@@ -27,7 +27,6 @@ class UserRequest extends FormRequest
         $rule = [
             'name' => ['required', 'string', 'min:3'],
             'email' => ['required', 'string', 'email', 'unique:users'],
-            'password' => ['required', 'confirmed'],
 
         ];
         if ($this->path() == 'api/user/' && $this->method() == 'post') {
@@ -43,7 +42,6 @@ class UserRequest extends FormRequest
             'name.required' => 'O nome é obrigatório',
             'email.required' => 'O campo email é obrigatório',
             'email.email' => 'O email inserido não é válido',
-            'password.required' => 'O campo senha é obrigatório',
             'email.unique' => 'O campo email deve ser único'
         ];
     }
