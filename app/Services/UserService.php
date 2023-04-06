@@ -7,6 +7,8 @@ use App\Repositories\Interfaces\ProfileRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use MongoDB\Driver\Exception\AuthenticationException;
 
 class UserService
 {
@@ -63,19 +65,23 @@ class UserService
 
     public function login(Request $request)
     {
-        if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json([
-                'message' => 'Credenciais Inválidas'
-            ], 401);
+        try {
+            $user = $this->repository->findByEmail($request->email);
+
+            if (!Hash::check($request->password, $user->password)) {
+                throw new \Exception('Credenciais Inválidas', 401);
+            }
+
+            $profile = $this->profileRepository->findById($user->profile_id);
+            $profile_abilities = $this->profileRepository->getProfileAbilities($profile);
+            $abilities = $this->profileRepository->getSlugsProfileAbilities($profile_abilities);
+
+            $token = $user->createToken('auth_token', $abilities)->plainTextToken;
+            return response()->json(['access_token' => $token, 'token_type' => 'Bearer']);
+        } catch (\Exception) {
+            return response()->json('Erro no login', 401);
         }
 
-        $user = $this->repository->findByEmail($request->email);
-        $profile = $this->profileRepository->findById($user->profile_id);
-        $profile_abilities = $this->profileRepository->getProfileAbilities($profile);
-        $abilities = $this->profileRepository->getSlugsProfileAbilities($profile_abilities);
-
-        $token = $user->createToken('auth_token', $abilities)->plainTextToken;
-        return response()->json(['access_token' => $token, 'token_type' => 'Bearer']);
 
     }
 

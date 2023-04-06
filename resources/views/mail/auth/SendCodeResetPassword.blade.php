@@ -3,7 +3,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>LARAVEL_STARTER_PACK</title>
+    <title>{{config('app.name')}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="color-scheme" content="light">
@@ -86,29 +86,12 @@
 
                                     <p style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
                                      position: relative;
-                                     font-size: 20px;
-                                    line-height: 1.5em;
-                                     margin-top: 0;
-                                    text-align: center;">
-                                        Usuário {{$user_name}} Criado com sucesso
-                                    </p>
-                                    <p style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-                                     position: relative;
                                      font-size: 18px;
                                     line-height: 1.5em;
                                      margin-top: 0;
                                      font-weight: bold;
                                     text-align: center;">
-                                        Senha provisória: <span style="color: #244EA0"> {{$password}} </span>
-                                    </p>
-                                    <p style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-                                     position: relative;
-                                     font-size: 16px;
-                                    line-height: 1.5em;
-                                     margin-top: 0;
-                                    text-align: center;">
-                                        Para sua segurança, recomendamos que a senha provisória seja atualizada logo
-                                        após o primeiro login.
+                                        CÓDIGO: <span style="color: #244EA0"> {{$code}} </span>
                                     </p>
                                 </td>
                             </tr>
