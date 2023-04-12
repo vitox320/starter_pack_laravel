@@ -6,9 +6,7 @@ use App\Repositories\Interfaces\ParametersRepositoryInterface;
 use App\Repositories\Interfaces\ProfileRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use MongoDB\Driver\Exception\AuthenticationException;
 
 class UserService
 {
