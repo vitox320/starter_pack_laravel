@@ -14,7 +14,7 @@ class ParametersService
     public function store(Request $request)
     {
         $this->repository->store($request->all());
-        return response()->json('Registro cadastrado com sucesso!', 201);
+        return response()->json(['message' => 'Registro cadastrado com sucesso!'], 201);
     }
 
 }

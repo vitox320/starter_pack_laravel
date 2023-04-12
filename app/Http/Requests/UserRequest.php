@@ -52,7 +52,7 @@ class UserRequest extends FormRequest
         $errors = $validator->errors();
         $response = response()->json([
             "error" => "Erro no envio de dados.",
-            "details" => $errors->messages()
+            "details" => $errors->first()
         ], 422);
         throw new HttpResponseException($response);
     }

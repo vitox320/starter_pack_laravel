@@ -35,9 +35,9 @@ class UserService
                 $data['profile_id'] = $this->parametersRepository->getParametersValueByParameterName('COLABORADOR_PROFILE');
             }
             $this->repository->store($data);
-            return response()->json('Registro cadastrado com sucesso', 201);
+            return response()->json(['message' => 'Registro cadastrado com sucesso'], 201);
         } catch (\Exception $exception) {
-            return response()->json(['Erro ao salvar usuário'], $exception->getCode());
+            return response()->json(['message' => 'Erro ao salvar usuário'], $exception->getCode());
         }
 
     }
@@ -57,9 +57,9 @@ class UserService
         try {
             $entity = $this->findById($id);
             $this->repository->update($entity, $request->all());
-            return response()->json('Registro atualizado com sucesso');
+            return response()->json(['message' => 'Registro atualizado com sucesso']);
         } catch (\Exception) {
-            return response()->json('Erro ao atualizar registro');
+            return response()->json(['message' => 'Erro ao atualizar registro']);
         }
     }
 
@@ -77,9 +77,9 @@ class UserService
             $abilities = $this->profileRepository->getSlugsProfileAbilities($profile_abilities);
 
             $token = $user->createToken('auth_token', $abilities)->plainTextToken;
-            return response()->json(['access_token' => $token, 'token_type' => 'Bearer']);
+            return response()->json(['message' => 'Login realizado com sucesso!', 'access_token' => $token, 'token_type' => 'Bearer']);
         } catch (\Exception) {
-            return response()->json('Erro no login', 401);
+            return response()->json(['message' => 'Erro no login'], 401);
         }
 
 

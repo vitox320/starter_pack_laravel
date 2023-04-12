@@ -15,9 +15,9 @@ class ProfileService
     {
         try {
             $this->repository->store($request->all());
-            return response()->json('Registro cadastrado com sucesso!', 201);
+            return response()->json(['message' => 'Registro cadastrado com sucesso!'], 201);
         } catch (\Exception) {
-            return response()->json('Erro ao cadastrar registro');
+            return response()->json(['message' => 'Erro ao cadastrar registro']);
         }
 
     }
@@ -27,9 +27,9 @@ class ProfileService
         try {
             $profile = $this->repository->findById($id);
             $this->repository->update($profile, $request->all());
-            return response()->json('Registro atualizado com sucesso!');
+            return response()->json(['message' => 'Registro atualizado com sucesso!']);
         } catch (\Exception) {
-            return response()->json('Erro ao atualizar registro');
+            return response()->json(['message' => 'Erro ao atualizar registro']);
         }
 
     }
@@ -39,8 +39,6 @@ class ProfileService
         $profile = $this->repository->findById($id);
         $profile_abilities = $this->repository->getProfileAbilities($profile);
         return $this->repository->getSlugsProfileAbilities($profile_abilities);
-
-
     }
 
 

@@ -20,13 +20,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/auth/logout', [AuthController::class, 'logout']);
+Route::post('/auth/register', [UserController::class, 'store']);
 
 Route::post('/auth/forgot-password', [ForgotPasswordController::class, 'sendCode']);
-Route::post('/auth/code-check', [CodeCheckController::class, 'verifyCode']);
-Route::post('/auth/password-reset', [ResetPasswordController::class, 'resetPassword']);
+Route::post('/auth/code-check', [ForgotPasswordController::class, 'verifyCode']);
+Route::post('/auth/password-reset', [ForgotPasswordController::class, 'resetPassword']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/auth')->group(function () {
