@@ -29,13 +29,11 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    /**
+     * @throws \Exception
+     */
     public function failedValidation(Validator $validator)
     {
-        $errors = $validator->errors();
-        $response = response()->json([
-            "error" => "Erro no envio de dados.",
-            "details" => $errors->first()
-        ], 422);
-        throw new HttpResponseException($response);
+        throw new \Exception(response()->json(["error" => "Erro no envio de dados.", "message" => $validator->errors()->first()], 422));
     }
 }
